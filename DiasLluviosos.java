@@ -1,0 +1,101 @@
+
+public class DiasLluviosos {
+
+    int diasDeSemana[] = new int[365];
+
+    public DiasLluviosos() {
+        for (int i = 0; i < diasDeSemana.length; i++) {
+            diasDeSemana[i] = 0;
+        }
+    }
+
+    void registrarQueLlovioElDia(int diaDeAnio, boolean llovio) {
+        if (diaDeAnio < 1 || diaDeAnio > diasDeSemana.length) {
+            System.out.println("El día debe estar entre 1 y 365");
+            return;
+        }
+        if (llovio == true) {
+            diasDeSemana[diaDeAnio - 1] = 1;
+        }
+        diasDeSemana[diaDeAnio - 1] = 0;
+    }
+
+    boolean consultarSiLlovioElDia(int diaDelAnio) {
+
+        if (diaDelAnio < 1 || diaDelAnio > diasDeSemana.length) {
+            System.out.println("El día debe estar entre 1 y 365");
+            return false;
+        }
+
+        if (diasDeSemana[diaDelAnio - 1] == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    int contarDiasLluviosos() {
+        int aux = 0;
+
+        for (int i = 0; i < diasDeSemana.length; i++) {
+            if (diasDeSemana[i] == 1) {
+                aux++;
+            }
+        }
+        return aux;
+    }
+
+    int consultarCuatrimestreMasLluvioso() {
+        int lluviasCuatrimestre1 = 0;
+        int lluviasCuatrimestre2 = 0;
+        int lluviasCuatrimestre3 = 0;
+        int lluviasCuatrimestre4 = 0;
+        int cuatrimestreMasLluvioso = 1;
+        int maxLluvias = lluviasCuatrimestre1;
+        for (int i = 0; i < 120; i++) {
+            if (diasDeSemana[i] == 1) {
+                lluviasCuatrimestre1++;
+            }
+        }
+
+        for (int i = 120; i < 240; i++) {
+            if (diasDeSemana[i] == 1) {
+                lluviasCuatrimestre2++;
+            }
+        }
+        for (int i = 240; i < 360; i++)
+            if (diasDeSemana[i] == 1) {
+                lluviasCuatrimestre3++;
+            }
+
+        for (int i = 360; i < 365; i++)
+            if (diasDeSemana[i] == 1) {
+                lluviasCuatrimestre4++;
+            }
+
+        if (lluviasCuatrimestre2 > maxLluvias) {
+            maxLluvias = lluviasCuatrimestre2;
+            cuatrimestreMasLluvioso = 2;
+
+        }
+        if (lluviasCuatrimestre3 > maxLluvias) {
+            maxLluvias = lluviasCuatrimestre3;
+            cuatrimestreMasLluvioso = 3;
+        }
+        if (lluviasCuatrimestre4 > maxLluvias) {
+            maxLluvias = lluviasCuatrimestre4;
+            cuatrimestreMasLluvioso = 4;
+        }
+        return cuatrimestreMasLluvioso;
+    }
+
+    int consultarPrimerDiaConLluvia() {
+        for (int i = 0; i < diasDeSemana.length; i++) {
+            if (diasDeSemana[i] == 1) {
+                return i;
+            }
+        }
+        return 0;
+
+    }
+
+}
